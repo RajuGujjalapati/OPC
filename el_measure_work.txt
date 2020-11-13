@@ -1,0 +1,14 @@
+Day - 1:
+
+modbus
+mqtt
+simply modbus--03,05,16
+- what is the registers?
+hivemq
+
+Day - 2:
+
+opc foundation--opc sever and client
+Kep ware - kep server(download)-- how client and server is working?
+metricon opc - motor, configuration.
+opc ua and da.

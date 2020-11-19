@@ -1,0 +1,7 @@
+mongo_db:
+  mongo_connection: mongodb://192.168.4.90:27017
+  username: null
+  password: null
+
+kairos_db:
+  url: http://192.168.4.90:18080

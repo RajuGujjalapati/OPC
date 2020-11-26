@@ -3,7 +3,7 @@ from opcua import Server, ua
 from random import randint
 from time import sleep
 server = Server()
-server.set_endpoint("opc.tcp://192.168.43.110:5000")
+server.set_endpoint("opc.tcp://localhost:5000")
 add_space = server.register_namespace("RooM1")
 node = server.get_objects_node()
 
@@ -11,12 +11,16 @@ param = node.add_object(add_space, "Parameters") # this may be optional, it crea
 print(param)
 
 #Temp = param.add_variable(add_space, "Temperature", 0)# sensor
-Temp = param.add_variable(add_space, "MyVariable", ua.Variant(0, ua.VariantType.Double))
-Press = param.add_variable(add_space, "Pressure", ua.Variant(0, ua.VariantType.Double))
-print(Temp)
-print(Press)
-Temp.set_writable()
-Press.set_writable()
+etype = server.create_custom_event_type(add_space, 'MyFirstEvent', ua.ObjectIds.BaseEventType, [('MyNumericProperty', ua.VariantType.Float), ('MyStringProperty', ua.VariantType.String)])
+
+myevgen = server.get_event_generator(etype, param)
+server.start()
+#Temp = param.add_variable(add_space, "MyVariable", ua.Variant(0, ua.VariantType.Double))
+#Press = param.add_variable(add_space, "Pressure", ua.Variant(0, ua.VariantType.Double))
+#print(Temp)
+#print(Press)
+#Temp.set_writable()
+#Press.set_writable()
 # adding new object for nodes, below is the diff ways, to add varibale to node
 #tempsens = objects.add_object('ns=2;s="TS1"',"Tempearature Sensor 1") # parent node-id
 #tempsens.add_variable('ns=2;s="TS1_VendorName"',"TS1 Vendor Name", "Sensore King")
@@ -27,6 +31,7 @@ Press.set_writable()
 #state.set_writable()
 #temper = 20.0
 #storing data in sqlite database....
+"""
 from opcua.server.history_sql import HistorySQLite
 server.iserver.history_manager.set_storage(HistorySQLite("my_datavalue_history4.sql"))
 
@@ -39,13 +44,28 @@ server.historize_node_data_change(Press, period=None, count=10)
 try:
         count = 0
         while True:
-            sleep(10)
+            sleep(1)
             count += 0.1
             Temp.set_value(math.sin(count))
             Press.set_value(math.cos(count))
             print(math.sin(count))
             print(math.cos(count))
+            
 
+"""
+try:
+        # time.sleep is here just because we want to see events in UaExpert
+        import time
+        count = 0
+        while True:
+            time.sleep(5)
+            myevgen.event.Message = ua.LocalizedText("MyFirstEvent %d" % count)
+            myevgen.event.Severity = count
+            myevgen.event.MyNumericProperty = count
+            myevgen.event.MyStringProperty = "Property " + str(count)
+            myevgen.trigger()
+           # mysecondevgen.trigger(message="MySecondEvent %d" % count)
+            count += 1
 
 #try:
 #        print("Server")

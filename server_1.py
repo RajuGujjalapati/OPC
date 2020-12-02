@@ -13,32 +13,32 @@ print(param)
 #Temp = param.add_variable(add_space, "Temperature", 0)# sensor # (nodeid, bname, val, varianttype=None, datatype=None)
 
 
-Temp = param.add_variable(add_space, "MyVariable", ua.Variant(0, ua.VariantType.Double))
+Temp = param.add_variable(add_space, "MyVariable", ua.Variant(0, ua.VariantType.Double))# type of variable
 Press = param.add_variable(add_space, "Pressure", ua.Variant(0, ua.VariantType.Double))
 print(Temp)
 print(Press)
 Temp.set_writable()
 Press.set_writable()
 # adding new object for nodes, below is the diff ways, to add varibale to node
-#tempsens = Temp.add_object('ns=2;s="TS1"',"Tempearature Sensor 1") # parent node-id
-#tempsens.add_variable('ns=2;s="TS1_VendorName"',"TS1 Vendor Name", "Sensore King")
-#tempsens.add_variable('ns=2;s="TS1_SerialNumber"',"TS1 Serial Name", 12345678)
+tempsens = Temp.add_object('ns=2;s="TS1"',"Tempearature Sensor 1") # parent node-id
+tempsens.add_variable('ns=2;s="TS1_VendorName"',"TS1 Vendor Name", "Sensore King")
+tempsens.add_variable('ns=2;s="TS1_SerialNumber"',"TS1 Serial Name", 12345678)
 #temp = tempsens.add_variable('ns=2;s="TS1_Temperature"', "TS1 Temperature", 20)
 #bulb = Press.add_object(2, "Light Bulb")
 #state = bulb.add_variable(2, "State of LIght Bulb", False)
 #state.set_writable()
+print(tempsens)
 temper = 20.0
 #storing data in sqlite database....
-server.start()
 from opcua.server.history_sql import HistorySQLite
-server.iserver.history_manager.set_storage(HistorySQLite("my_datavalue_history5.sql"))
+#server.iserver.history_manager.set_storage(HistorySQLite("my_datavalue_history5.sql"))
 
     # starting!
 
 
     # enable data change history for this particular node, must be called after start since it uses subscription
-server.historize_node_data_change(Temp, period=None, count=5)
-server.historize_node_data_change(Press, period=None, count=10)
+#server.historize_node_data_change(Temp, period=None, count=5)
+#server.historize_node_data_change(Press, period=None, count=10)
 server.start()
 try:
         count = 0

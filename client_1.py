@@ -1,10 +1,15 @@
 from opcua import Client
 #client = Client("opc.tcp://desktop-tm6jk0c:62640/IntegrationObjects/ServerSimulator")
 #client = Client('opc.tcp://raju:boss@desktop-tm6jk0c:62640/IntegrationObjects/ServerSimulator')
-client = Client('Matrikon.OPC.Simulation.1')
-client.connect()
-print("connected")
-from time import sleep
+client = Client('opc.tcp://desktop-tm6jk0c:49152/OPCUAServerExpert')
+client.set_security_string("Basic256Sha256,SignAndEncrypt,OPCUAServerExpert.der,OPCUAServerExpert.pem")
+try:
+
+    client.connect()
+    print("connected")
+    from time import sleep
+finally:
+    print("OK")
 ########## start with #######
 class SubHandler(object):
 

@@ -31,10 +31,10 @@ if __name__ == "__main__":
     # create second event
     etype2 = server.create_custom_event_type(2, 'MySecondEvent', ua.ObjectIds.BaseEventType,
                                              [('MyOtherProperty', ua.VariantType.Float)])
-
+    import random
     # get an event generator for the myobj node which generates custom events
     myevgen = server.get_event_generator(etype, myobj)
-    myevgen.event.Severity = 0.92
+    myevgen.event.Severity = 900
     myevgen.event.MyStringProperty = ua.Variant("hello world")
     myevgen.event.MyNumericProperty = ua.Variant(-456)
 
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     # get an event generator for the server node which generates BaseEventType
     serverevgen = server.get_event_generator()
-    serverevgen.event.Severity = 111
+    serverevgen.event.Severity = random.randint(1,999)# give severity from 1  to 1000.
 
     # Configure server to use sqlite as history database (default is a simple in memory dict)
     server.iserver.history_manager.set_storage(HistorySQLite("my_event_history.sql"))

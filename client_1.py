@@ -1,9 +1,15 @@
 from opcua import Client
 #client = Client("opc.tcp://desktop-tm6jk0c:62640/IntegrationObjects/ServerSimulator")
-client = Client('opc.tcp://raju:boss@desktop-tm6jk0c:62640/IntegrationObjects/ServerSimulator')
-client.connect()
-print("connected")
-from time import sleep
+#client = Client('opc.tcp://raju:boss@desktop-tm6jk0c:62640/IntegrationObjects/ServerSimulator')
+client = Client('opc.tcp://desktop-tm6jk0c:49152/OPCUAServerExpert')
+client.set_security_string("Basic256Sha256,SignAndEncrypt,OPCUAServerExpert.der,OPCUAServerExpert.pem")
+try:
+
+    client.connect()
+    print("connected")
+    from time import sleep
+finally:
+    print("OK")
 ########## start with #######
 class SubHandler(object):
 
@@ -23,11 +29,11 @@ objects = client.get_objects_node()
 print(objects)
 tempsens = objects.get_children()
 print(tempsens)
-print(tempsens[3].get_children())
+print(tempsens[1].get_children())
 #print("Objects node is: ", root)
 try:
     while True:
-        tempsensw = client.get_node("ns=2;s=Tag12")#
+        tempsensw = client.get_node("ns=2;i=1")#
         print("pass", tempsensw)
         print(tempsensw.get_value())
         msclt = SubHandler()

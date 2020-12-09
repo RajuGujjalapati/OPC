@@ -25,7 +25,7 @@ class SubHandler(object):
     """
     Subscription Handler. To receive events from server for a subscription
     data_change and event methods are called directly from receiving thread.
-    Do not do expensive, slow or network operation there. Create another 
+    Do not do expensive, slow or network operation there. Create another
     thread if you need to do such a thing
     """
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # logger = logging.getLogger("KeepAlive")
     # logger.setLevel(logging.DEBUG)
 
-    client = Client("opc.tcp://localhost:5001")
+    client = Client("opc.tcp://localhost:5000")
 
     # client = Client("opc.tcp://OPC@192.168.6.162/Matrikon.OPC.Simulation.1") #connect using a user
     try:

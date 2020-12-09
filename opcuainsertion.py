@@ -21,7 +21,7 @@ kairos = Kairos()
 
 from opcua import Client
 # client = Client("opc.tcp://10.0.0.11:4840")
-client = Client('opc.tcp://192.168.43.110:5000')
+client = Client('opc.tcp://com_sam:Elmeasure@192.168.5.254:4840/test')
 client.connect()
 def insert_data(value, tag): #100081
     current_time = get_millisecond_from_date_time(datetime.now().replace(second=00, microsecond=00))

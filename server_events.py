@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     # setup our server
     server = Server()
-    server.set_endpoint("opc.tcp://127.0.0.1:5000")
+    server.set_endpoint("opc.tcp://127.0.0.1:5001")
 
     # setup our own namespace, not really necessary but should as spec
     uri = "TEst"
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     custom_etype1 = server.nodes.base_event_type.add_object_type(3, 'MySecondEvent3')
 
     custom_etype1.add_property(2, 'MyIntProperty11', ua.Variant(67, ua.VariantType.Int32))
-    custom_etype1.add_property(2, 'MyBoolProperty11', ua.Variant(True, ua.VariantType.Boolean))
+    custom_etype1.add_property(2, 'MyBoolProperty11', ua.Variant(False, ua.VariantType.Boolean))
     mysecondevgen1 = server.get_event_generator(custom_etype1, myobj)
     # mysecondevgen.trigger("Testing for trigger data")
     # starting!

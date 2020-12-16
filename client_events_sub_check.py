@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # logger = logging.getLogger("KeepAlive")
     # logger.setLevel(logging.DEBUG)
 
-    client = Client("opc.tcp://localhost:5000")
+    client = Client("opc.tcp://localhost:5001")
 
     # client = Client("opc.tcp://OPC@192.168.6.162/Matrikon.OPC.Simulation.1") #connect using a user
     try:
@@ -107,13 +107,14 @@ if __name__ == "__main__":
         myevent = root.get_child(["0:Types", "0:EventTypes", "0:BaseEventType", "2:MyFirstEvent"])
         print(myevent)
         obj = root.get_child(["0:Objects", "2:MyObject"])
-        sub = client.create_subscription(1000, handler)
+        """Successfully we are handled events ..... The events is now triggering when the severity changes...."""
+        sub = client.create_subscription(10000, handler)# setting up an interval
         print(ua.ObjectIds.Server)
-        handle1 = sub.subscribe_events(obj, myevent)
+        handle1 = sub.subscribe_events(obj)
         # print(handle1)
         # handle = sub.subscribe_data_change(var.get_children()+myevent.get_children())# pass list of nodes for subscription
-        # # check = sub.subscribe_events()
-        # # print(check)
+        check = sub.subscribe_events()
+        print(check)
         # print("Handle", handle)
         time.sleep(0.1)
         # sub.unsubscribe(handle1)

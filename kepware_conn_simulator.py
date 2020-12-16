@@ -14,7 +14,7 @@ print(simu)
 node = client.get_node(simu)
 print(node)
 dev = simu.get_children()
-read_tag = dev[-1]# selecting the req child
+read_tag = dev[-1] # selecting the req child
 dev_child = read_tag.get_children()
 tag_data = dev_child[-1]
 print(tag_data.get_value())

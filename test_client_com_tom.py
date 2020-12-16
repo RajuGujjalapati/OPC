@@ -37,7 +37,7 @@ try:
                # print(client.get_node(i).get_browse_name())  # for getting the browse name don't give str(i), use that only for get_value()
                 out1 = client.get_node(str(i)).get_value()  # getting the nodes
                 print(out1)
-            time.sleep(60)
+            time.sleep(2)
 
     # print(node.get_value())
 except Exception as e:

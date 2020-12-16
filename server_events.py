@@ -72,6 +72,7 @@ if __name__ == "__main__":
 
         while True:
             time.sleep(5)
+            choices = [True, False]
             myvar.set_value(random.randint(1, 900))
             myfl.set_value(random.randrange(1, 800))
             myevgen.event.Message = ua.LocalizedText("MyFirstEvent %d" % count)
@@ -79,11 +80,15 @@ if __name__ == "__main__":
             myevgen.event.MyNumericProperty = count
             myevgen.event.MyStringProperty = "Property " + str(count)
 
-            mysecondevgen1.event.Message = ua.LocalizedText("Custom Event ra babu %d" % count)
-            mysecondevgen1.event.Severity = count
-            mysecondevgen1.event.MyNumericProperty = count
-            mysecondevgen1.event.MyStringProperty = "Property " + str(count)
-            mysecondevgen1.trigger(message="Custom Event message")
+            mysecondevgen1.event.Message = ua.LocalizedText("Custom Event ra  %d" % count)
+            "Setting the different condtions for events and subscribing to node"
+            mysecondevgen1.event.MyBoolProperty11 = random.choice(choices)
+            if mysecondevgen1.event.MyBoolProperty11==True:
+                mysecondevgen1.event.Severity  = 900
+                mysecondevgen1.trigger(message="Custom Event message")
+            elif mysecondevgen1.event.MyBoolProperty11 == False:
+                mysecondevgen1.event.Severity = 200
+                mysecondevgen1.trigger(message="Not an issue")
 
             # myevgen.event.Message = ua.LocalizedText("ADSAKJAM AKDNKA KJDASJDAN SKDFJHDKA AKSJHDFNFL")
             # myevgen.trigger()

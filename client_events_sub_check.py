@@ -25,7 +25,7 @@ class SubHandler(object):
     """
     Subscription Handler. To receive events from server for a subscription
     data_change and event methods are called directly from receiving thread.
-    Do not do expensive, slow or network operation there. Create another 
+    Do not do expensive, slow or network operation there. Create another
     thread if you need to do such a thing
     """
 
@@ -41,13 +41,12 @@ if __name__ == "__main__":
     # logger = logging.getLogger("KeepAlive")
     # logger.setLevel(logging.DEBUG)
 
-    client = Client("opc.tcp://raju:qwertyuiopasdf@DESKTOP-TM6JK0C:5002")
+    client = Client("opc.tcp://localhost:5001")
 
     # client = Client("opc.tcp://OPC@192.168.6.162/Matrikon.OPC.Simulation.1") #connect using a user
     try:
         client.connect()
         client.load_type_definitions()  # load definition of server specific structures/extension objects
-        print("!" * 20, client.name)
 
         # Client has a few methods to get proxy to UA nodes that should always be in address space such as Root or Objects
         root = client.get_root_node()
@@ -58,7 +57,7 @@ if __name__ == "__main__":
         # Node objects have methods to read and write node attributes as well as browse or populate address space
         print("Children of root are: ", root.get_children())
         print("---------------------------")
-        # print(root.get_child("ns=2;i=1"))
+        #print(root.get_child("ns=2;i=1"))
         try:
             for i in test:
                 get_ = i.get_children()
@@ -81,7 +80,7 @@ if __name__ == "__main__":
             pass
         # get a specific node knowing its node id
         # var = client.get_node(ua.NodeId(1002, 2))
-        var = client.get_node("ns=2;s=Ch1.Device1.tea")
+        var = client.get_node("ns=2;i=1")
         # print(var.get_value())
         # var.get_data_value() # get value of node as a DataValue object
         # var.get_value() # get value of node as a python builtin
@@ -89,13 +88,13 @@ if __name__ == "__main__":
         # var.set_value(3.9) # set node value using implicit data type
 
         # gettting our namespace idx
-        # uri = "TEst"
-        # idx = client.get_namespace_index(uri)
-        # print(idx)
+        uri = "TEst"
+        idx = client.get_namespace_index(uri)
+        print(idx)
         # Now getting a variable node using its browse path
         myvar = root.get_children()
         print(myvar)
-        obj = root.get_child(["0:Objects", "{}:Ch1".format(2)])  # 2-->idx
+        obj = root.get_child(["0:Objects", "{}:MyObject".format(idx)])
         print(obj.nodeid)
         print("obj is: ", obj.get_browse_name())
         types = root.get_child(["0:Types", "{}:EventTypes".format(0)])
@@ -105,16 +104,17 @@ if __name__ == "__main__":
         # sub = client.create_subscription(1000, handler)
         # print(sub)
         print("_" * 30)
-        myevent = root.get_child("ns=2;s=Ch1.Device1.tea")
+        myevent = root.get_child(["0:Types", "0:EventTypes", "0:BaseEventType", "2:MyFirstEvent"])
         print(myevent)
-        obj = root.get_child(["0:Root,0:Objects,2:Ch1"])
-        sub = client.create_subscription(1000, handler)
+        obj = root.get_child(["0:Objects", "2:MyObject"])
+        """Successfully we are handled events ..... The events is now triggering when the severity changes...."""
+        sub = client.create_subscription(10000, handler)# setting up an interval
         print(ua.ObjectIds.Server)
-        handle1 = sub.subscribe_events(obj, myevent)
+        handle1 = sub.subscribe_events(obj)
         # print(handle1)
         # handle = sub.subscribe_data_change(var.get_children()+myevent.get_children())# pass list of nodes for subscription
-        # # check = sub.subscribe_events()
-        # # print(check)
+        check = sub.subscribe_events()
+        print(check)
         # print("Handle", handle)
         time.sleep(0.1)
         # sub.unsubscribe(handle1)

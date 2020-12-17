@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     # setup our server
     server = Server()
-    server.set_endpoint("opc.tcp://127.0.0.1:5000")
+    server.set_endpoint("opc.tcp://127.0.0.1:5001")
 
     # setup our own namespace, not really necessary but should as spec
     uri = "TEst"
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     custom_etype1 = server.nodes.base_event_type.add_object_type(3, 'MySecondEvent3')
 
     custom_etype1.add_property(2, 'MyIntProperty11', ua.Variant(67, ua.VariantType.Int32))
-    custom_etype1.add_property(2, 'MyBoolProperty11', ua.Variant(True, ua.VariantType.Boolean))
+    custom_etype1.add_property(2, 'MyBoolProperty11', ua.Variant(False, ua.VariantType.Boolean))
     mysecondevgen1 = server.get_event_generator(custom_etype1, myobj)
     # mysecondevgen.trigger("Testing for trigger data")
     # starting!
@@ -72,6 +72,7 @@ if __name__ == "__main__":
 
         while True:
             time.sleep(5)
+            choices = [True, False]
             myvar.set_value(random.randint(1, 900))
             myfl.set_value(random.randrange(1, 800))
             myevgen.event.Message = ua.LocalizedText("MyFirstEvent %d" % count)
@@ -79,11 +80,15 @@ if __name__ == "__main__":
             myevgen.event.MyNumericProperty = count
             myevgen.event.MyStringProperty = "Property " + str(count)
 
-            mysecondevgen1.event.Message = ua.LocalizedText("Custom Event ra babu %d" % count)
-            mysecondevgen1.event.Severity = count
-            mysecondevgen1.event.MyNumericProperty = count
-            mysecondevgen1.event.MyStringProperty = "Property " + str(count)
-            mysecondevgen1.trigger(message="Custom Event message")
+            mysecondevgen1.event.Message = ua.LocalizedText("Custom Event ra  %d" % count)
+            "Setting the different condtions for events and subscribing to node"
+            mysecondevgen1.event.MyBoolProperty11 = random.choice(choices)
+            if mysecondevgen1.event.MyBoolProperty11==True:
+                mysecondevgen1.event.Severity  = 900
+                mysecondevgen1.trigger(message="Custom Event message")
+            elif mysecondevgen1.event.MyBoolProperty11 == False:
+                mysecondevgen1.event.Severity = 200
+                mysecondevgen1.trigger(message="Not an issue")
 
             # myevgen.event.Message = ua.LocalizedText("ADSAKJAM AKDNKA KJDASJDAN SKDFJHDKA AKSJHDFNFL")
             # myevgen.trigger()

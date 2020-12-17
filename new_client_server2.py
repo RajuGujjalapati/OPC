@@ -11,7 +11,7 @@ for v in var:
     all_child =  v.get_children()
     print(all_child)
     for i in all_child:
-        try:            
+        try:
             com_tom = client.get_node(i).get_value()
             if com_tom != None:
                 print(com_tom)

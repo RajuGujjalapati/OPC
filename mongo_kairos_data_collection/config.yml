@@ -1,0 +1,257 @@
+service:
+  kl_url: http://192.168.4.95
+  elm_url: http://192.168.4.95
+  mnt_path: /home/elmpc/PycharmProjects/elnet-7.0-py-services/code/data/
+  name: ilens_elmeasure
+  host: 0.0.0.0
+  port: 8585
+  elm_port: 5005
+  SECRET_KEY: KLKey
+  enable_security: false
+  default_timeout: 90000
+  network_address: eth0
+  disabled_device_group: []
+  license_path: /home/elmpc/PycharmProjects/elnet-7.0-py-services/code/data/
+
+
+log:
+  file_name: ilens
+  path: /home/elmpc/PycharmProjects/elnet-7.0-py-services/code/
+  level: DEBUG
+  handler: rotating_file_handler
+  max_bytes: 10000000
+  backup_count: 10
+
+upload_csv:
+  path: logs/UPLOAD
+
+mongo_db:
+  mongo_connection: mongodb://192.168.4.95:27018
+  username: null
+  password: null
+
+kairos_db:
+  url: http://192.168.4.95:18085
+
+mssql_data:
+  ip_address: 192.168.4.150
+  user: sa
+  password: Elnetsrv123*
+  db_name: SAP_ELM
+  table_name: Chanel_new
+  dialetic: mssql+pymssql://
+
+csv:
+  path: logs/csv
+metric:
+  name: ilens.live_data.raw
+
+system_login_domain:
+  domain_list: ["knowledgelens.com","elmeasure.com"]
+
+rule_engine:
+  base_rule_url: "http://192.168.4.95:8585"
+  create_immediate_job: "/create/immediate"
+  create_schedule_job: "/create/schedule"
+
+Scheduler_module:
+  base_url: "http://scheduler_engine:9997/create_job"
+
+manual_entry_kairose_tag:
+  category_2: "gateway_0"
+
+scheduler:
+  mongo_ip: 192.168.4.95
+  mongo_port: 27018
+  auto_report: true
+  schedulerPath: /mnt/containers/ilens/data/kairos_visualizer/data/
+
+mqtt:
+  host: 192.168.4.95
+  port: 1883
+
+erp_data:
+  device_instance_id: device_instance_439
+  total_production_tag_id: tag_2746
+
+tms_client_id:
+  client_id: "client_1166"
+
+environment:
+  mode: "development"
+tokens_expiry:
+  access_token_expiry: 50554
+  refresh_token_expiry: 1440655667
+sag_swell_interruption:
+  sag_swell_tag: "tag_2332"
+  date_tag: "tag_2327"
+  time_tag: "tag_2328"
+
+plant_wise_energy_report:
+  shift_timings:
+    shifts : 3
+    shift_1 :
+      start_time : '08:00'
+      end_time : '18:00'
+    shift_2:
+      start_time: '18:00'
+      end_time : '21:00'
+    shift_3 :
+      start_time : '21:00'
+      end_time : '08:00'
+  device_groups:
+    incomer_device_groups :
+      incomer : 'device_group_1'
+    distribution_device_groups :
+      Distribution : 'device_group_2'
+      distribution_1: 'device_group_4'
+
+  mail_list : ['ashok@elmeasure.com','ashok.kolluri1998@gmail.com']
+  tags:
+    Wh_rec : 'tag_293'
+    Volts_LN : 'tag_284'
+    VA_Total : 'tag_276'
+    pf : 'tag_272'
+    amps : 'tag_288'
+    Avg_pf :
+      Wh_rec : 'tag_272'
+#      Vah_rec : 'tag_294'
+    THD_Amps_R : 'tag_309'
+    THD_Amps_Y : 'tag_310'
+    THD_Amps_B : 'tag_311'
+    THD_Volts_R : 'tag_306'
+    THD_Volts_Y : 'tag_307'
+    THD_Volts_B : 'tag_308'
+    sag_swell_tag: "tag_2332"
+    date_tag: "tag_2327"
+    time_tag: "tag_2328"
+    run_hour : 'tag_316'
+  dg_run_hours:
+    id : device_instance_186
+    tag_name : 'Load Hrs Rec'
+    tag_id: 'tag_316'
+
+  eb_incomer:
+    tag_id : 'tag_293'
+    device_group_id_list :
+      Second Floor : 'device_group_67'
+      First Floor : 'device_group_66'
+      Ground Floor : 'device_group_65'
+      A/C Load : 'device_group_17'
+      STP : 'device_group_23'
+      DG kWh : 'device_instance_186'
+
+image_view:
+  image_path : /code/data/images/
+
+table_row_count:
+  count : 200
+
+hpcl_daily_report:
+  template_path : /home/elmpc/PycharmProjects/elnet-7.0-py-services/code/
+  mail_list : ['ashok@elmeasure.com']
+  site_id : "industry_3_client_1107"
+  manual_entry_data :
+    maual_entry_id : 'manual_entry_10004'
+    Consumption:
+      Diesel_Consumption_in_(Liters): 'tag_10001'
+      Diesel_Stock_in_DG-1_(Liters): 'tag_10002'
+      Diesel_Stock_in_DG-2_(Liters): 'tag_10003'
+      Diesel_Stock_in_Barrels_(Liters): 'tag_10004'
+      Water_Consumption_(KL): 'tag_10005'
+      Main_Sump_Tank_Level_(35KL): 'tag_10006'
+      Water_received_from_HMWS_And_SB_(KL): 'tag_10007'
+    Total_in_cost:
+        TSSPDCL_EB_Rate_per_Unit:   'tag_10008'
+        Diesel_in_Liters_Rate_per_Unit: 'tag_10009'
+        Water_in_KL_Rate_per_Unit: 'tag_10010'
+    Ambient_Temperature:
+        Max_Temperature: 'tag_10011'
+        Min_Temperature: 'tag_10012'
+    FPS:
+        Fire_Hydrant_Pressure_(Kg/Cm2): 'tag_10013'
+        Fire_Sprinkler_Pressure-(Kg/Cm2): 'tag_10014'
+    Complaints:
+        Request_Recieved_User_Generated: 'tag_10019'
+        Request_Recieved_Self_Generated: 'tag_10020'
+        Request_Closed_User_Generated: 'tag_10021'
+        Request_Closed_Self_Generated: 'tag_10022'
+        Request_Open_User_Generated: 'tag_10023'
+        Request_Open_Self_Generated: 'tag_10024'
+    Facilites:
+        ELECTRICAL: 'tag_10025'
+        DG: 'tag_10026'
+        HVAC: 'tag_10027'
+        FIRE_&_SECURITY: 'tag_10028'
+        IBMS: 'tag_10029'
+        ELEVATORS: 'tag_10030'
+    Equipment_Status:
+        HT_Panel: 'tag_10031'
+        Transformer_(2000KVA): 'tag_10032'
+        DG_Set: 'tag_10033'
+        Sprinkler_pumps: 'tag_10034'
+        UPS: 'tag_10035'
+        Precision_AHU_&_Cassette_Units: 'tag_10036'
+        Chiller_Pumps: 'tag_10037'
+        Main_Sprinkler_pump: 'tag_10038'
+        Fire_Alarm_System: 'tag_10039'
+        Access_control_system: 'tag_10040'
+        LT_Panel: 'tag_10041'
+    Water_Status:
+        Main_Sump_Tank_Level_(35KL): 'tag_10006'
+        Hydrant_Tank_(55KL): 'tag_10015'
+        Sprinkler_Tank_(41KL): 'tag_10016'
+        Terrace_Fire_Tank_(31KL): 'tag_10017'
+        Terrace_Domestic_Tank_1_(31KL): 'tag_10018'
+        Terrace_Domestic_Tank_2_(31KL): 'tag_10042'
+    Solar_Power_Generation_(KWH): 'tag_10047'
+
+  tags:
+    Wh_rec: 'tag_10081'
+    Vah_rec: 'tag_10082'
+    kVA_max_demand: 'tag_10083'
+    run_hours : 'tag_10084'
+  power_consumption:
+    power_consumption_device_group:
+      TSCPDCL Power Consumption (KWH): 'device_instance_10037'
+      DG Power Consumption (KWH): 'device_group_10004'
+      Solar Power Generation (KWH): ''
+    power_factor_and_maximum_demand:
+      device_id : 'device_instance_10037'
+
+  power_consumption_breakup:
+      Transformer SP: 'device_instance_669'
+      Device 2: 'device_instance_673'
+      GW 2 Device 2 : 'device_instance_677'
+      Generator : 'device_instance_681'
+      Transformer Incomer : 'device_instance_685'
+      FF Incomer : 'device_instance_689'
+      SF Spare-1 : 'device_instance_184'
+      College : 'device_instance_693'
+      FF Mainsupply : 'device_instance_730'
+      Sf Lighting : 'device_instance_734'
+      FF Prod : 'device_instance_738'
+      FF RND : 'device_instance_742'
+      BOOK Store : 'device_instance_746'
+
+  chiller_run_hour:
+    chiller-1 : 'device_instance_10040'
+    chiller-2 : 'device_instance_10041'
+    chiller -3 : 'device_instance_10042'
+  equipment_details:
+      DG-1 : 'device_instance_10038'
+      DG-2 : 'device_instance_10039'
+specific_fuel_consumption:
+  tags:
+    capacity: 'tag_10043'
+    diesel_consumed_for_trail_run : 'tag_10044'
+    diesel_consumed_for_load_run/power_fail : 'tag_10045'
+    diesel_consumed_for_b_check : 'tag_10046'
+    wh_rec : 'tag_293'
+  device_groups:
+    Group-3 : 'device_group_14'
+  manual_entry_id : 'manual_entry_10015'
+  mail_list : ['ashok@elmeasure.com']
+
+timezone:
+  timezone: "Asia/Kolkata"

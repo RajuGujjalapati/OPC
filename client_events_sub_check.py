@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # logger = logging.getLogger("KeepAlive")
     # logger.setLevel(logging.DEBUG)
 
-    client = Client("opc.tcp://localhost:5001")
+    client = Client("opc.tcp://raju:qwertyuiopasdf@localhost:5002")
 
     # client = Client("opc.tcp://OPC@192.168.6.162/Matrikon.OPC.Simulation.1") #connect using a user
     try:
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         # Node objects have methods to read and write node attributes as well as browse or populate address space
         print("Children of root are: ", root.get_children())
         print("---------------------------")
-        #print(root.get_child("ns=2;i=1"))
+        # print(root.get_child("ns=2;i=1"))
         try:
             for i in test:
                 get_ = i.get_children()
@@ -107,8 +107,8 @@ if __name__ == "__main__":
         myevent = root.get_child(["0:Types", "0:EventTypes", "0:BaseEventType", "2:MyFirstEvent"])
         print(myevent)
         obj = root.get_child(["0:Objects", "2:MyObject"])
-        """Successfully we are handled events ..... The events is now triggering when the severity changes...."""
-        sub = client.create_subscription(10000, handler)# setting up an interval
+        """Successfully we are handled events ..... The events is now triggering when the condition changes...."""
+        sub = client.create_subscription(1000, handler)  # setting up an interval
         print(ua.ObjectIds.Server)
         handle1 = sub.subscribe_events(obj)
         # print(handle1)
@@ -130,7 +130,7 @@ if __name__ == "__main__":
         # sub.unsubscribe(handle)
         # sub.delete()
         # calling a method on server
-        # res = obj.call_method("ns=2;i=2", "True")
+        # res = obj.call_method("ns={here we have to use custom method with params (may be)}", "True")
         # print("method result is: ", res)
         print("complete")
         embed()

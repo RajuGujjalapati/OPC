@@ -31,7 +31,7 @@
 #         self.query["metrics"][0]["tags"] = value
 
 #     # method to set metrics name
-#     # value must be string
+# value must be string
 #     def set_metrics_name(self, value):
 #         self.query["metrics"][0]["name"] = value
 
@@ -40,7 +40,7 @@
 #     def set_metrics_aggregators(self, value):
 #         self.query["metrics"][0]["aggregators"] = value
 
-#     # method to set absolute or relative start and end date
+    # method to set absolute or relative start and end date
 #     # assign True to is_absolute if having absolute start and end date else False if having relative start and end date
 #     def set_start_end_date(self, is_absolute, start='', end=''):
 #         if is_absolute:
@@ -106,7 +106,7 @@ kairos_server = app_conf.get_kairos_host()
 class Kairos:
     def __init__(self):
         self.query = {"plugins": [], "cache_time": 0, "metrics": []}
-        self.update_query = {"name": "",  "datapoints": [], "tags": {}}
+        self.update_query = {"name": "", "datapoints": [], "tags": {}}
         dict_metrics = {"tags": {}, "name": "",
                         "group_by": []}
         dict_metrics["group_by"].append({"name": "tag",
@@ -158,7 +158,8 @@ class Kairos:
     # method to return the data from kairosdb based on query
     def get_kairos_data(self):
         self.response = requests.post(kairos_server + "/api/v1/datapoints/query", data=json.dumps(self.query))
-        return self.response.json()["queries"][0]["results"] if "queries" in self.response.json() else [{'tags': {}, 'name': 'ilens.live_data.raw', 'values': []}]
+        return self.response.json()["queries"][0]["results"] if "queries" in self.response.json() else [
+            {'tags': {}, 'name': 'ilens.live_data.raw', 'values': []}]
 
     # method to delete absolute or relative start and end date from query
     # type - absolute or relative
@@ -169,8 +170,11 @@ class Kairos:
             del self.query["end_" + type]
 
     # method to update the data to kairosdb based on query
-    def update_kairos_data(self):
-        self.response = requests.post(kairos_server + "/api/v1/datapoints", data=json.dumps(self.update_query))
+    # def update_kairos_data(self):
+    #     self.response = requests.post(kairos_server + "/api/v1/datapoints", data=json.dumps(self.update_query))
+    def update_kairos_data(self,  update_query_with_array_of_object):
+        return requests.post(kairos_server + "/api/v1/datapoints", data=json.dumps(
+          update_query_with_array_of_object))
 
     # method to set update query name
     # value must be string

@@ -44,4 +44,4 @@ df = pd.DataFrame(response[0]['values'], columns=["TimeStamp", "values"])
 
 df['TimeStamp'] = pd.to_datetime(df['TimeStamp'], unit='ms').dt.tz_localize('GMT').dt.tz_convert('Asia/Kolkata').dt.tz_localize(None)
 
-print(df['values'][0])
+print(df['values'])

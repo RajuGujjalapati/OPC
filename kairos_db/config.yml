@@ -6,4 +6,4 @@ mongo_db:
   password: null
 
 kairos_db:
-  url: http://192.168.4.90:18080
+  url: http://192.168.4.95:18085

@@ -4,7 +4,7 @@ import pandas as pd
 import pymongo
 import pytz
 from flask_pymongo import PyMongo
-from flask import Flask
+from flask import Flask, jsonify
 import datetime
 from app_config import AppConfig
 from pymongo import MongoClient
@@ -22,12 +22,12 @@ app_livedata.config['MONGO_URI'] = app_conf.get_mongo_host() + '/ilens_livedata'
 # mongo = PyMongo(app)
 live_app = PyMongo(app_livedata)
 time_zone = 'Asia/Kolkata'
-print((datetime.datetime.now() - datetime.datetime(1970, 1, 1)).total_seconds())
-print(time.time())
+# print((datetime.datetime.now() - datetime.datetime(1970, 1, 1)).total_seconds())
+# print(time.time())
 
 
-def new_record(live_data_collection):
-    return
+# def new_record(live_data_collection):
+#     return
 
 
 def get_millisecond_from_date_time(date_time):
@@ -39,7 +39,7 @@ def get_millisecond_from_date_time(date_time):
 
 def live_data_collection():
     now_ = datetime.datetime.now()
-    diff = now_ - datetime.timedelta(minutes=1)
+    diff = now_ - datetime.timedelta(minutes=6)
     print(time.time() + 600)
 
     lt = get_millisecond_from_date_time(now_)
@@ -50,8 +50,8 @@ def live_data_collection():
     # pd.DataFrame(live_app.db.industry_3_client_1107.find({"timestamp": {'$lt': time.time()}},
     #                                                      {'category_7': 0, 'last_visible': 0,
     #                                                       'previous_value': 0}).sort([('timestamp', -1)]))
-    data.to_csv('etst.csv')
+    # data.to_csv('etst.csv')
     return data
 
 
-print(live_data_collection())
+# print(live_data_collection())

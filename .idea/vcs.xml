@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/elnet-7.0-py-services/elnet-7.0-py-services" vcs="Git" />
   </component>
 </project>

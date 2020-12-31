@@ -14,12 +14,12 @@ async def main():
     server = Server()
     
     # Configure server to use sqlite as history database (default is a simple memory dict)
-    server.iserver.history_manager.set_storage(HistorySQLite("my_datavalue_history.sql"))
+    server.iserver.history_manager.set_storage(HistorySQLite("my_datavalue_historytest.sql"))
     
     # initialize server 
     await server.init()
 
-    server.set_endpoint("opc.tcp://localhost:5000")
+    server.set_endpoint("opc.tcp://localhost:5002")
 
     # setup our own namespace, not really necessary but should as spec
     uri = "http://examples.freeopcua.github.io"

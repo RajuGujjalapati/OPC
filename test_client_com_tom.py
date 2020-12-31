@@ -1,19 +1,12 @@
 import traceback
 
 from opcua import Client
+conne = False
+client = Client("opc.tcp://com_sam:Elmeasure@192.168.5.254:4840/test")
 
-client = Client("opc.tcp//com_sam:Elmeasure@192.168.5.254:4840/test")
-#client.activate_session(username="com_sam", password="Elmeasure")
-# client.set_security_string("Basic256Sha256")
-test = client.get_server_node()
-print(test)
-test1 = "as"
-print(test1)
-# print(client.load_type_definitions())
-# https://github.com/FreeOpcUa/python-opcua/issues/778
-#client.set_security_string("Basic256Sha256,SignAndEncrypt,OPCUAServerExpert.der,OPCUAServerExpertCsr.pem")
 try:
     client.connect()
+    conne = True
     obj = client.get_objects_node()
     obj_bn = client.get_objects_node().get_browse_name()
     print(obj_bn)
@@ -36,20 +29,20 @@ try:
     print(tes)
     import time
 
-    while True:
+    while conne:
         for j in tes:  # list of list
             # print(j[0].get_browse_name())
             for i in j:  # parsing lists
                 # print(j)
-                print(client.get_node(\
-                    i).get_browse_name())  # for getting the browse name don't give str(i), use that only for get_value()
+               # print(client.get_node(i).get_browse_name())  # for getting the browse name don't give str(i), use that only for get_value()
                 out1 = client.get_node(str(i)).get_value()  # getting the nodes
                 print(out1)
-            time.sleep(0.5)
+            time.sleep(2)
 
     # print(node.get_value())
 except Exception as e:
     traceback.print_exc()
     client.disconnect()
-finally:
-    client.disconnect()
+    conne = False
+# finally:
+#     client.disconnect()

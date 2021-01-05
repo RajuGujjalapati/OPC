@@ -2,7 +2,7 @@ import traceback
 
 from opcua import Client
 conne = False
-client = Client("opc.tcp://com_sam:Elmeasure@192.168.5.254:4840/test")
+client = Client("opc.tcp://com.tom:Elmeasure@192.168.4.181:4840/test")
 
 try:
     client.connect()
@@ -35,14 +35,17 @@ try:
             for i in j:  # parsing lists
                 # print(j)
                # print(client.get_node(i).get_browse_name())  # for getting the browse name don't give str(i), use that only for get_value()
-                out1 = client.get_node(str(i)).get_value()  # getting the nodes
+                out1 = client.get_node\
+                    (str(i)).get_value()  # getting the nodes
+                print(len(out1))
                 print(out1)
-            time.sleep(2)
+            time.sleep(0.5)
 
     # print(node.get_value())
 except Exception as e:
     traceback.print_exc()
     client.disconnect()
+    client.close_session()
     conne = False
 # finally:
 #     client.disconnect()

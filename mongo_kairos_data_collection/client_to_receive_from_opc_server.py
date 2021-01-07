@@ -21,7 +21,7 @@ app_metadata.config['MONGO_URI'] = app_conf.get_mongo_host() + '/ilens_metadata'
 meta_data_app = PyMongo(app_metadata)
 time_zone = 'Asia/Kolkata'
 kairos = Kairos()
-client = Client(url="opc.tcp://127.0.0.1:5091")
+client = Client("opc.tcp://127.0.0.1:5091")
 client.connect()
 
 
@@ -33,7 +33,8 @@ def get_millisecond_from_date_time(date_time):
 
 
 def live_data():
-    obj = client.get_objects_node().get_children()[1:]
+    print(client.get_objects_node().get_browse_name())
+    obj = client.get_objects_node().get_children()#[1:]
     obj = [i.get_children() for i in obj]
     for _ in obj:
         for i in _:
@@ -73,10 +74,11 @@ def log_data():  # device_id, start_date, end_date, status
             log_data()
 
 
+
 now_ = datetime.datetime.now()
 diff = now_ - datetime.timedelta(minutes=6)
 if __name__ == '__main__':
-    # while True:
-    # time.sleep(5)
-    # live_data()
-    log_data()
+    while True:
+        time.sleep(5)
+        live_data()
+        log_data()

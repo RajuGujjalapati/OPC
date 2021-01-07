@@ -3,5 +3,19 @@ mongo_db:
   username: null
   password: null
 
+
 kairos_db:
   url: http://192.168.4.90:18080
+
+
+mqtt:
+  host: 192.168.4.90
+  port: 1883
+
+mqtt_web_socket:
+  host: 192.168.4.90
+  port: 8083
+  ssl : False
+  cert_path : /code/data/
+
+

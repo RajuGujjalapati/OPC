@@ -1,3 +1,5 @@
+import traceback
+
 from opcua import Server
 import time
 from kairos import Kairos
@@ -76,8 +78,8 @@ def whole_process(dat=None, tags_id=None, data=[]):
                 kairos.set_metrics_tags({"category_3": [str(dat.device_instance_id)], "category_5": [str(tag_)]})
                 kairos.set_relative_time(start_time=random.randint(1, 5), unit='minutes')
                 # kairos.set_start_end_date(True, gt, lt)
-                response = requests.post(kairosdb_server + "/api/v1/datapoints", json.dumps([kairos.query]))
-                print(response)
+                # response = requests.post(kairosdb_server + "/api/v1/datapoints", json.dumps([kairos.query]))
+                # print(response)
                 res = kairos.get_kairos_data()
                 print(res)
                 try:
@@ -88,6 +90,7 @@ def whole_process(dat=None, tags_id=None, data=[]):
                         final_tag[kairos_tag_id] = total_data
                         print(total_data)
                 except (IndexError, KeyError):
+                    traceback.print_exc()
                     pass
 
 
@@ -97,7 +100,7 @@ def whole_process(dat=None, tags_id=None, data=[]):
                 if tag_ in final_tag:
                     tag = tagnode_tag_id[tag_]
                     kairos.set_metrics_tags({"category_3": [str(dat.device_instance_id)], "category_5": [str(tag_)]})
-                    kairos.set_relative_time(start_time=random.randint(1, 5), unit='minutes')
+                    kairos.set_relative_time(start_time=10, unit='minutes')
                     # kairos.set_start_end_date(True, gt, lt)
                     # response = requests.post(kairosdb_server + "/api/v1/datapoints", json.dumps([kairos.query]))
                     # print(response)
@@ -108,10 +111,11 @@ def whole_process(dat=None, tags_id=None, data=[]):
                         if total_data:
                             kairos_tag_id = res[0]['group_by'][0]['group']['category_5']
                             "Replace tag_name with node_id"
-                            tag.set_value(total_data)
+                            tag.write_value(total_data)
                             final_tag[kairos_tag_id] = total_data
                             print(total_data)
-                    except IndexError:
+                    except Exception:
+                        traceback.print_exc()
                         pass
 
         # kairos.set_metrics_tags({"category_3": [str(dat.device_instance_id)], "category_5": [str(tags_id)]})
@@ -176,3 +180,4 @@ def process_for_kairos_extraction(tag_id):
 if __name__ == '__main__':
     while True:
         whole_process(data = dataframe_mongo())
+        time.sleep(60)

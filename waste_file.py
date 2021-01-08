@@ -43,3 +43,29 @@
 #
 # asyncio.run(main())
 
+from opcua import Client, ua
+
+# url = "opc.tcp://127.0.0.1:5600"  # opc.tcp://192.168.4.181:4840
+url = "opc.tcp://com.tom:Elmeasure@192.168.4.181:4840/test"
+client = Client(url)
+
+client.application_uri = "urn:com-tom:OpcUaServer"
+# client.set_user("com.tom")
+# client.set_password("Elmeasure")
+client.set_security_string(r"Basic256Sha256,SignAndEncrypt,"
+                           r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\comtom\cert.der,"
+                           r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\comtom\key.pem")
+ # not necessary
+
+client.connect()
+print(f"Connected to: {client.get_endpoints()}")
+
+obj = client.get_objects_node()
+print(obj.get_children())
+
+# servicelevel_node = client.get_node("ns=0;i=2267")
+#
+# servicelevel_node_value = servicelevel_node.get_value()
+# print(servicelevel_node_value)
+#
+# client.disconnect()

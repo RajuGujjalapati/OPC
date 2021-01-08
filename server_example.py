@@ -50,13 +50,13 @@ if __name__ == "__main__":
 
     servername = "Python-OPC-UA"
     server.set_server_name(servername)
-    address_space = server.register_namespace("http://andreas-heine.net/UA")
+    address_space = server.register_namespace("test application")
 
     uri = "URI:urn:opcua:python:server"
     server.set_application_uri(uri)
 
-    server.load_certificate("certificate.pem")
-    server.load_private_key("key.pem")
+    server.load_certificate(r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\comtom\cert.der")
+    server.load_private_key(r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\key.pem")
     server.set_security_policy([
         # ua.SecurityPolicyType.NoSecurity,
         # ua.SecurityPolicyType.Basic128Rsa15_Sign,
@@ -118,7 +118,9 @@ if __name__ == "__main__":
     # mysecondevgen = server.get_event_generator(custom_etype, myobj)
 
     # starting!
+    server.register_namespace("check")
     server.start()
+    print(server.get_endpoints())
     try:
         # time.sleep is here just because we want to see events in UaExpert
         import time

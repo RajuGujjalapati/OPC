@@ -3,7 +3,13 @@ import traceback
 from opcua import Client
 conne = False
 client = Client("opc.tcp://com.tom:Elmeasure@192.168.4.181:4840/test")
+# client.set_security()
+client.application_uri = "urn:com-tom:OpcUaServer"
 
+
+client.set_security_string(r"Basic256Sha256,SignAndEncrypt,"
+                           r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\comtom\cert.der,"
+                           r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\comtom\key.pem")
 try:
     client.connect()
     conne = True

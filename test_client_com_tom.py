@@ -1,18 +1,28 @@
 import traceback
 from opcua.ua.uaerrors import BadCommunicationError, BadTooManySessions
 from opcua import Client
-conne = False
-client = Client("opc.tcp://com.tom:Elmeasure@192.168.4.181:4840/test")
-# client.set_security()
-client.application_uri = "urn:com-tom:OpcUaServer:test" # imp use this uri for communication
 
+conne = False
+client = Client("opc.tcp://192.168.4.181:4840/test")
+# client.set_security()
+client.application_uri = "urn:com-tom:OpcUaServer:test"  # imp use this uri for communication
+client.set_user('com.tom')
+client.set_password('Elmeasure')
 
 client.set_security_string(r"Basic256Sha256,SignAndEncrypt,"
                            r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\comtom\cert.der,"
                            r"C:\Users\New\OneDrive\Desktop\El_Measure\test_sessionOpenssl\clean\comtom\key.pem")
+
+print(client.connect_and_find_servers())
+print(client.connect_and_get_server_endpoints())
+# print(client.connect_and_find_servers_on_network())
 try:
     client.connect()
-    client.get
+    # print(client.connect_and_find_servers())
+    # print(client.connect_and_get_server_endpoints())
+    # print(client.connect_and_find_servers_on_network())
+    # print(client.get_endpoints())
+    # client.get
     conne = True
     obj = client.get_objects_node()
     obj_bn = client.get_objects_node().get_browse_name()
@@ -44,8 +54,8 @@ try:
             print(client.get_values(j))
             for i in j:  # parsing lists
                 # print(j)
-               # print(client.get_node(i).get_browse_name())  # for getting the browse name don't give str(i), use that only for get_value()
-                out1 = client.get_node\
+                # print(client.get_node(i).get_browse_name())  # for getting the browse name don't give str(i), use that only for get_value()
+                out1 = client.get_node \
                     (str(i)).get_value()  # getting the nodes
                 print(len(out1))
                 print(out1)
